@@ -14,6 +14,16 @@ services:
     build: .
     ports:
       - 80:5000
+    volumes:
+      - .:/opt/todo
+  test:
+    build:
+      context: .
+      dockerfile: test/Dockerfile
+    volumes:
+      - .:/opt/todo 
+
+      
 
 volumes:
   db_volume:
