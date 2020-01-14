@@ -1,0 +1,8 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "entry.js",
+  "repository": "git@github.com:andylincoln/flask-experiment.git",
+  "author": "Vishal Ramesh <45186928+VishalRamesh50@users.noreply.github.com>",
+  "license": "MIT"
+}
