@@ -4,5 +4,16 @@
   "main": "entry.js",
   "repository": "git@github.com:andylincoln/flask-experiment.git",
   "author": "Vishal Ramesh <45186928+VishalRamesh50@users.noreply.github.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "NODE_ENV=development parcel build client/entry.js --no-minify --out-dir static",
+    "watch": "NODE_ENV=development parcel watch client/entry.js --out-dir static"
+  },
+  "devDependencies": {
+    "parcel-bundler": "1.12.4"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "16.12.0"
+  }
 }
