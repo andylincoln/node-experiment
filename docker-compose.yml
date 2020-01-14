@@ -2,13 +2,14 @@
 version: '3.7'
 
 services:
-
-  db:
+  database:
     image: postgres
     environment:
       POSTGRES_PASSWORD: example
-
-  adminer:
-    image: adminer
     ports:
-      - 8080:8080
+      - 5432:5432
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+
+volumes:
+  db_volume:
