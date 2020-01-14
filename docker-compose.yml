@@ -11,6 +11,8 @@ services:
     volumes:
       - db_volume:/var/lib/postgresql/data
   todo:
+    depends_on: 
+      - database
     build: .
     ports:
       - 80:5000
