@@ -10,6 +10,8 @@
     "watch": "NODE_ENV=development parcel watch client/entry.js --out-dir static"
   },
   "devDependencies": {
+    "@babel/core": "7.8.3",
+    "@babel/preset-react": "7.8.3",
     "parcel-bundler": "1.12.4"
   },
   "dependencies": {
