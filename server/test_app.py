@@ -36,10 +36,18 @@ def test_delete_item(client):
     actual = TodoItem.query.filter_by(id=1).first()
     assert actual is None
 
-def test_update_item(client):
+def test_update_item_completed(client):
     item = TodoItem(id=1, completed=False, text="Test item three text")
     db.session.add(item)
     db.session.flush()
     client.put('/todo/1/', json={"completed": True})
     actual = TodoItem.query.filter_by(id=1).one()
     assert actual.completed
+
+def test_update_item_text(client):
+    item = TodoItem(id=1, completed=False, text="Test item three text")
+    db.session.add(item)
+    db.session.flush()
+    client.put('/todo/1/', json={"text": "My new text"})
+    actual = TodoItem.query.filter_by(id=1).one()
+    assert actual.text == "My new text"
