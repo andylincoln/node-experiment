@@ -18,7 +18,7 @@ const App = function() {
       <h1>TODO</h1>
       <ul>
         {todoItems.map((todoItem) => (
-          <TodoItem key={`todoitem-${todoItem}`} {...todoItem} />
+          <TodoItem key={`todoitem-${todoItem.id}`} {...todoItem} />
         ))}
       </ul>
     </div>
