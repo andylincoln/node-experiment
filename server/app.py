@@ -1,12 +1,15 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask.views import MethodView
 from flask_sqlalchemy import SQLAlchemy
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, post_load
 
 app = Flask(__name__, static_folder="../static")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:example@database:5432/todo'
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql://postgres:example@database:5432/todo"
 db = SQLAlchemy(app)
+
 
 class TodoItem(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -14,7 +17,7 @@ class TodoItem(db.Model):
     completed = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
-        return f'<TodoItem {self.id} {self.text} {self.completed}>'
+        return f"<TodoItem {self.id} {self.text} {self.completed}>"
 
 
 class TodoItemSchema(Schema):
@@ -22,40 +25,53 @@ class TodoItemSchema(Schema):
     text = fields.String()
     completed = fields.Boolean()
 
+    @post_load
+    def get_model(self, item, **kwargs):
+        return TodoItem(**item)
+
 
 class TodoAPI(MethodView):
     def get(self, todo_item_id):
         if todo_item_id is None:
             items = TodoItem.query.all()
             schema = TodoItemSchema(many=True)
-            return {'status': 'success',
-                    'data': schema.dump(items)}
+            return {"status": "success", "data": schema.dump(items)}
         else:
-           item = TodoItem.query.filter_by(id=todo_item_id).first()
-           schema = TodoItemSchema()
-           return {'status': 'success',
-                    'data': schema.dump(item)}
+            item = TodoItem.query.filter_by(id=todo_item_id).first()
+            schema = TodoItemSchema()
+            return {"status": "success", "data": schema.dump(item)}
 
     def post(self):
-        # create a new user
-        pass
+        payload = request.get_json(force=True)
+        schema = TodoItemSchema()
+        item = schema.load(payload)
+        db.session.add(item)
+        db.session.flush()
+        return ""
 
     def delete(self, todo_item_id):
-        # delete a single user
-        pass
+        item = TodoItem.query.filter_by(id=todo_item_id).first_or_404()
+        db.session.delete(item)
+        db.session.flush()
+        return ""
 
     def put(self, todo_item_id):
         # update a single user
         pass
 
-todo_item_view = TodoAPI.as_view('todo_api')
-app.add_url_rule('/todo/', defaults={'todo_item_id': None},
-                 view_func=todo_item_view, methods=['GET',])
-app.add_url_rule('/todo/', view_func=todo_item_view, methods=['POST',])
-app.add_url_rule('/todo/<int:todo_item_id>', view_func=todo_item_view,
-                 methods=['GET', 'PUT', 'DELETE'])
+
+todo_item_view = TodoAPI.as_view("todo_api")
+app.add_url_rule(
+    "/todo/", defaults={"todo_item_id": None}, view_func=todo_item_view, methods=["GET"]
+)
+app.add_url_rule("/todo/", view_func=todo_item_view, methods=["POST"])
+app.add_url_rule(
+    "/todo/<int:todo_item_id>/",
+    view_func=todo_item_view,
+    methods=["GET", "PUT", "DELETE"],
+)
 
 
-@app.route('/')
+@app.route("/")
 def hello():
     return render_template("app.html")
