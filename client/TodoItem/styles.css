@@ -1,0 +1,8 @@
+.todoItem {
+  margin: 25px;
+  list-style: none;
+}
+
+.completed {
+  text-decoration: line-through;
+}

@@ -1,7 +1,12 @@
 import React from 'react'
+import classNames from 'classnames'
+
+import styles from './styles.css'
 
 const TodoItem = ({ id, text, completed, handleCheck }) => (
-  <li>
+  <li
+    className={classNames(styles.todoItem, { [styles.completed]: completed })}
+  >
     <input
       type="checkbox"
       onChange={handleCheck}

@@ -7,15 +7,19 @@
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=development parcel build client/entry.js --no-minify --out-dir static",
-    "watch": "NODE_ENV=development parcel watch client/entry.js --out-dir static"
+    "watch": "NODE_ENV=development parcel watch client/entry.js --out-dir static",
+    "clean": "rm -rf .cache static/*"
   },
   "devDependencies": {
     "@babel/core": "7.8.3",
     "@babel/preset-react": "7.8.3",
-    "parcel-bundler": "1.12.4"
+    "autoprefixer": "9.7.4",
+    "parcel-bundler": "1.12.4",
+    "postcss-modules": "1.5.0"
   },
   "dependencies": {
     "axios": "0.19.1",
+    "classnames": "2.2.6",
     "react": "^16.0.0",
     "react-dom": "16.12.0"
   }
