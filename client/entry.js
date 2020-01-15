@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import App from './App'
+
 window.todoApp = (elementId) => {
   const container = document.getElementById(elementId)
-  ReactDOM.render(<div>I love it when an app comes together!</div>, container)
+  ReactDOM.render(<App />, container)
 }

@@ -13,6 +13,7 @@
     "parcel-bundler": "1.12.4"
   },
   "dependencies": {
+    "axios": "0.19.1",
     "react": "^16.0.0",
     "react-dom": "16.12.0"
   }
