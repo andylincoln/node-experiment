@@ -30,9 +30,20 @@ const App = function() {
 
   function handleCheck(e) {
     const id = e.target.dataset.id
-    console.log(e.target)
     axios
       .put(`/todo/${id}/`, { completed: e.target.checked })
+      .then((response) => {
+        if (response.status == 200) {
+          getTodoItems()
+        }
+      })
+      .catch((error) => console.error(error))
+  }
+
+  function handleDelete(e) {
+    const id = e.target.dataset.id
+    axios
+      .delete(`/todo/${id}/`)
       .then((response) => {
         if (response.status == 200) {
           getTodoItems()
@@ -53,6 +64,7 @@ const App = function() {
             key={`todoitem-${todoItem.id}`}
             {...todoItem}
             handleCheck={handleCheck}
+            handleDelete={handleDelete}
           />
         ))}
       </ul>

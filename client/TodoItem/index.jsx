@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import styles from './styles.css'
 
-const TodoItem = ({ id, text, completed, handleCheck }) => (
+const TodoItem = ({ id, text, completed, handleCheck, handleDelete }) => (
   <li
     className={classNames(styles.todoItem, { [styles.completed]: completed })}
   >
@@ -14,6 +14,9 @@ const TodoItem = ({ id, text, completed, handleCheck }) => (
       data-id={id}
     ></input>
     {text}
+    <button onClick={handleDelete} data-id={id}>
+      x
+    </button>
   </li>
 )
 
