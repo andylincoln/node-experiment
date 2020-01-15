@@ -5,7 +5,6 @@ import TodoItem from '../TodoItem'
 const App = function() {
   const [todoItems, setTodoItems] = useState([])
   useEffect(() => {
-    let todoItems = []
     axios
       .get('/todo')
       .then((response) => {
@@ -19,12 +18,7 @@ const App = function() {
       <h1>TODO</h1>
       <ul>
         {todoItems.map((todoItem) => (
-          <TodoItem
-            key={`todoitem-${todoItem.id}`}
-            completed={todoItem.completed}
-            id={todoItem.id}
-            text={todoItem.text}
-          />
+          <TodoItem key={`todoitem-${todoItem}`} {...todoItem} />
         ))}
       </ul>
     </div>
