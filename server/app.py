@@ -27,7 +27,13 @@ class TodoItemSchema(Schema):
 
     @post_load
     def get_model(self, item, **kwargs):
-        return TodoItem(**item)
+        if item.get("id"):
+            todo_item = TodoItem.query.filter_by(id=item["id"]).one()
+            for key, value in item.items():
+                setattr(todo_item, key, value)
+            return todo_item
+        else:
+            return TodoItem(**item)
 
 
 class TodoAPI(MethodView):
@@ -53,8 +59,14 @@ class TodoAPI(MethodView):
         return ""
 
     def put(self, todo_item_id):
-        # update a single user
-        pass
+        payload = request.get_json(force=True)
+        payload["id"] = todo_item_id
+        schema = TodoItemSchema()
+        item = schema.load(payload)
+        db.session.add(item)
+        db.session.flush()
+        db.session.commit()
+        return ""
 
 
 todo_item_view = TodoAPI.as_view("todo_api")
