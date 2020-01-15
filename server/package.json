@@ -6,9 +6,15 @@
   "author": "Vishal Ramesh <45186928+VishalRamesh50@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "serve": "node server.js"
+    "serve": "node dist/server.js",
+    "build": "tsc",
+    "watch": "yarn build -w"
   },
   "dependencies": {
     "express": "4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "4.17.2",
+    "typescript": "3.7.4"
   }
 }
