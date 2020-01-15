@@ -38,7 +38,7 @@ class TodoItemSchema(Schema):
 
 class TodoAPI(MethodView):
     def get(self):
-        items = TodoItem.query.all()
+        items = TodoItem.query.order_by(TodoItem.id).all()
         schema = TodoItemSchema(many=True)
         return {"status": "success", "data": schema.dump(items)}
 

@@ -18,11 +18,27 @@ const App = function() {
       text: e.target.elements.text.value,
       completed: false,
     }
-    axios.post('/todo/', formData).then((response) => {
-      if (response.status == 200) {
-        getTodoItems()
-      }
-    })
+    axios
+      .post('/todo/', formData)
+      .then((response) => {
+        if (response.status == 200) {
+          getTodoItems()
+        }
+      })
+      .catch((error) => console.error(error))
+  }
+
+  function handleCheck(e) {
+    const id = e.target.dataset.id
+    console.log(e.target)
+    axios
+      .put(`/todo/${id}/`, { completed: e.target.checked })
+      .then((response) => {
+        if (response.status == 200) {
+          getTodoItems()
+        }
+      })
+      .catch((error) => console.error(error))
   }
 
   const [todoItems, setTodoItems] = useState([])
@@ -33,7 +49,11 @@ const App = function() {
       <h1>TODO</h1>
       <ul>
         {todoItems.map((todoItem) => (
-          <TodoItem key={`todoitem-${todoItem.id}`} {...todoItem} />
+          <TodoItem
+            key={`todoitem-${todoItem.id}`}
+            {...todoItem}
+            handleCheck={handleCheck}
+          />
         ))}
       </ul>
       <NewItemForm handleSubmit={handleSubmit} />
