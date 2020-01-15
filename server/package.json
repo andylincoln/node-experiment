@@ -1,0 +1,14 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "git@github.com:andylincoln/node-experiment.git",
+  "author": "Vishal Ramesh <45186928+VishalRamesh50@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}
