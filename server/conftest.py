@@ -16,5 +16,6 @@ def auto_rollback():
     for item in TodoItem.query.all():
         db.session.delete(item)
     db.session.flush()
+    db.commit = lambda: None
     yield
     db.session.rollback()

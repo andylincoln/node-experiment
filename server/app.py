@@ -47,12 +47,14 @@ class TodoAPI(MethodView):
         item = schema.load(payload)
         db.session.add(item)
         db.session.flush()
+        db.session.commit()
         return ""
 
     def delete(self, todo_item_id):
         item = TodoItem.query.filter_by(id=todo_item_id).first_or_404()
         db.session.delete(item)
         db.session.flush()
+        db.session.commit()
         return ""
 
     def put(self, todo_item_id):
