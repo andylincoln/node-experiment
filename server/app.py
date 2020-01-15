@@ -31,15 +31,10 @@ class TodoItemSchema(Schema):
 
 
 class TodoAPI(MethodView):
-    def get(self, todo_item_id):
-        if todo_item_id is None:
-            items = TodoItem.query.all()
-            schema = TodoItemSchema(many=True)
-            return {"status": "success", "data": schema.dump(items)}
-        else:
-            item = TodoItem.query.filter_by(id=todo_item_id).first()
-            schema = TodoItemSchema()
-            return {"status": "success", "data": schema.dump(item)}
+    def get(self):
+        items = TodoItem.query.all()
+        schema = TodoItemSchema(many=True)
+        return {"status": "success", "data": schema.dump(items)}
 
     def post(self):
         payload = request.get_json(force=True)
@@ -63,14 +58,9 @@ class TodoAPI(MethodView):
 
 
 todo_item_view = TodoAPI.as_view("todo_api")
+app.add_url_rule("/todo/", view_func=todo_item_view, methods=["GET", "POST"])
 app.add_url_rule(
-    "/todo/", defaults={"todo_item_id": None}, view_func=todo_item_view, methods=["GET"]
-)
-app.add_url_rule("/todo/", view_func=todo_item_view, methods=["POST"])
-app.add_url_rule(
-    "/todo/<int:todo_item_id>/",
-    view_func=todo_item_view,
-    methods=["GET", "PUT", "DELETE"],
+    "/todo/<int:todo_item_id>/", view_func=todo_item_view, methods=["PUT", "DELETE"]
 )
 
 
