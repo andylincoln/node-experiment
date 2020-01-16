@@ -13,7 +13,8 @@
     },
     "lib": ["ES2015"],
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "allowJs": true
   },
   "include": ["src/*"]
 }
