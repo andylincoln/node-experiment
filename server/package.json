@@ -6,10 +6,11 @@
   "author": "Vishal Ramesh <45186928+VishalRamesh50@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "serve": "node --inspect dist/server.js",
+    "serve": "nodemon --inspect dist/server.js",
     "build": "tsc",
     "watch": "yarn build -w",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "test": "NODE_ENV=test jest src/ --max-workers=1"
   },
   "dependencies": {
     "express": "4.17.1",
@@ -19,7 +20,14 @@
   },
   "devDependencies": {
     "@types/express": "4.17.2",
+    "@types/jest": "24.9.0",
     "@types/node": "13.1.7",
+    "@types/supertest": "2.0.8",
+    "jest": "24.9.0",
+    "jest-runner-tsc": "1.6.0",
+    "nodemon": "2.0.2",
+    "supertest": "4.0.2",
+    "ts-jest": "24.3.0",
     "ts-node": "8.6.2",
     "typescript": "3.7.4"
   }
