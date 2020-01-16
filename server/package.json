@@ -6,7 +6,7 @@
   "author": "Vishal Ramesh <45186928+VishalRamesh50@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "serve": "node dist/server.js",
+    "serve": "node --inspect dist/server.js",
     "build": "tsc",
     "watch": "yarn build -w",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js"
