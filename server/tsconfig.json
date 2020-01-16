@@ -11,7 +11,9 @@
     "paths": {
       "*": ["node_modules/*", "src/*"]
     },
-    "lib": ["ES2015"]
+    "lib": ["ES2015"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["src/*"]
 }
