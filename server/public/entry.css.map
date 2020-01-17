@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,gBAAgB;AAClB;;AAEA;EACE,6BAA6B;AAC/B","file":"entry.css","sourceRoot":"../../client","sourcesContent":[".todoItem {\n  margin: 25px;\n  list-style: none;\n}\n\n.completed {\n  text-decoration: line-through;\n}\n"]}

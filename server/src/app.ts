@@ -1,3 +1,4 @@
+import path from 'path'
 import 'reflect-metadata'
 import { createConnection, Connection, getRepository } from 'typeorm'
 import express from 'express'
@@ -6,12 +7,15 @@ import { validate } from 'class-validator'
 
 const app = express()
 app.use(express.json())
+app.use(express.static('public'))
+app.set('views', path.join(__dirname, '../src/views'))
+app.set('view engine', 'pug')
 
 createConnection()
   .then((connection) => {
     if (connection) {
       app.get('/', (req, res) => {
-        res.send('I love it when a plan comes together!')
+        res.render('index', { title: 'Hey', message: 'I love it when a plan comes together!' })
       })
 
       app.get('/todo/', async (req, res) => {
@@ -67,6 +71,12 @@ createConnection()
       })
 
       app.delete('/todo/:id', async (req, res) => {
+        const todoId = req.params.id
+        const todoRepo = getRepository(TodoItem)
+        const todoItem = await todoRepo.findOne({
+          where: [{ id: todoId }],
+        })
+        todoRepo.delete(todoItem)
         res.json({
           status: 'success',
         })
