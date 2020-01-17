@@ -4,9 +4,12 @@
 
 Clone this repo and run these commands
 
-```
+```sh
 docker-compose up -d database
 psql -h database -U postgres -f init.sql
+cd server
+yarn install
+yarn typeorm migration:run
 ```
 
 ## Back End
