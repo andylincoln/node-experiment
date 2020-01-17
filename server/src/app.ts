@@ -32,12 +32,9 @@ createConnection()
         const todoItem = new TodoItem()
         todoItem.completed = body.completed
         todoItem.text = body.text
-        console.log('Before validation')
         const errors = await validate(todoItem)
-        console.log('after validation')
         if (errors.length === 0) {
           await getRepository(TodoItem).save(todoItem)
-          //
           res.status(200).json({
             status: 'success',
             data: todoItem,
@@ -54,10 +51,18 @@ createConnection()
       })
 
       app.put('/todo/:id', async (req, res) => {
-        const body = req.body
-        const todoItem = await getRepository(TodoItem).save(body)
+        const { completed = null, text = null } = req.body
+        const todoId = req.params.id
+        const todoRepo = getRepository(TodoItem)
+        const todoItem = await todoRepo.findOne({
+          where: [{ id: todoId }],
+        })
+        todoItem.completed = completed ? completed : todoItem.completed
+        todoItem.text = text ? text : todoItem.text
+        todoRepo.save(todoItem)
         res.json({
           status: 'success',
+          data: todoItem,
         })
       })
 
